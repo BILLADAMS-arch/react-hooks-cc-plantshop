@@ -1,17 +1,31 @@
-import React from "react";
+// Search.js
+import React, { Component } from 'react';
 
-function Search() {
-  return (
-    <div className="searchbar">
-      <label htmlFor="search">Search Plants:</label>
+class Search extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchTerm: ''
+    };
+    this.onSearchChange = this.onSearchChange.bind(this);
+  }
+
+  onSearchChange(event) {
+    this.setState({ searchTerm: event.target.value });
+    // Lift the state up to the parent
+    this.props.onSearchChange(event.target.value);
+  }
+
+  render() {
+    return (
       <input
         type="text"
-        id="search"
-        placeholder="Type a name to search..."
-        onChange={(e) => console.log("Searching...")}
+        value={this.state.searchTerm}
+        onChange={this.onSearchChange}
+        placeholder="Search..."
       />
-    </div>
-  );
+    );
+  }
 }
 
 export default Search;
